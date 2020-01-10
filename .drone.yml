@@ -18,7 +18,7 @@ steps:
 - name: clone_gh-pages
   image: alpine/git
   commands:
-  - ls -alh /tmp
+  - ls -alh 
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts /tmp/helm-charts
   - mv /tmp/nzbhydra/nzbhydra* /tmp/helm-charts
   - cd /tmp/helm-charts
