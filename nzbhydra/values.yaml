@@ -1,0 +1,66 @@
+# Default values for nzbget.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: registry.holthome.net/k8s-services/docker-nzbhydra
+  tag: latest
+  pullPolicy: Always
+
+# upgrade strategy type (e.g. Recreate or RollingUpdate)
+strategyType: Recreate
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 5076
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+storageClassName: slow-disks
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+persistence:
+  config:
+    enabled: true
+    accessMode: ReadWriteOnce
+  downloads:
+    existingClaim: tank-docker-pvc
+    subPath: root
+
+nzbhydra:
+  downloadDir: /downloads
+  configDir: /config
+  env:
+    TZ: "America/New_York"
+    PUID: 50000
+    PGID: 50000
+
+podAnnotations: {}

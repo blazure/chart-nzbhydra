@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nzbhydra.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "nzbhydra.name" . }}
+    helm.sh/chart: {{ include "nzbhydra.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/created": {{ .Release.Time.Seconds | quote }}
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.strategyType }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "nzbhydra.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "nzbhydra.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+      {{- end }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        env:
+        - name: TZ
+          value: {{ .Values.nzbhydra.env.TZ | quote }}
+        - name: PUID
+          value: {{ .Values.nzbhydra.env.PUID | quote }}
+        - name: PGID
+          value: {{ .Values.nzbhydra.env.PGID | quote }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: config
+            mountPath: {{ .Values.nzbhydra.configDir }}
+          - name: downloads
+            mountPath: {{ .Values.nzbhydra.downloadDir }}
+            {{- if .Values.persistence.downloads.subPath }}
+            subPath: {{ .Values.persistence.downloads.subPath }}
+            {{ end }}
+        ports:
+          - name: http
+            containerPort: 5076
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5076
+            scheme: HTTP
+          initialDelaySeconds: 60
+          timeoutSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5076
+            scheme: HTTP
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+      imagePullSecrets:
+      - name: registrypullsecret
+      volumes:
+      - name: config
+      {{- if .Values.persistence.config.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.config.existingClaim }}{{ .Values.persistence.config.existingClaim }}{{- else }}{{ template "nzbhydra.fullname" . }}-config{{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{ end }}
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.downloads.existingClaim }}

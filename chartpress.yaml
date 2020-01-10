@@ -1,0 +1,5 @@
+charts:
+  - name: nzbhydra
+    repo:
+      git: carpenike/chart-nzbhydra
+      published: https://charts.blazure.com/
