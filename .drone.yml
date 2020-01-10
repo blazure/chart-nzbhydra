@@ -21,7 +21,7 @@ steps:
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts /tmp/helm-charts
   - mv /tmp/nzbhydra/nzbhydra* /tmp/helm-charts
   - cd /tmp/helm-charts
-  - ls /tmp
+  - ls /tmp -alh
   - git add .
   - git commit -m "add updated helm package"
   - git push
