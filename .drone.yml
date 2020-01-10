@@ -7,12 +7,13 @@ steps:
 - name: build
   image: dtzar/helm-kubectl:2.16.1
   commands:
+  - mkdir /tmp/nzbhydra
   - helm init -c
   - helm lint nzbhydra
   - wget -O - https://github.com/norwoodj/helm-docs/releases/download/v0.8.0/helm-docs_0.8.0_Linux_x86_64.tar.gz | tar xvzf - helm-docs
   - ./helm-docs
-  - helm package nzbhydra
-  - ls ${PWD}
+  - helm package nzbhydra -d /tmp/nzbhydra
+  - ls /tmp/nzbhydra 
 
     #- name: clone pages
     #  image: alpine/git
