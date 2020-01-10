@@ -12,15 +12,15 @@ steps:
   - helm lint nzbhydra
   - wget -O - https://github.com/norwoodj/helm-docs/releases/download/v0.8.0/helm-docs_0.8.0_Linux_x86_64.tar.gz | tar xvzf - helm-docs
   - ./helm-docs
-  - helm package nzbhydra -d /tmp/nzbhydra
-  - ls /tmp/nzbhydra 
+  - helm package nzbhydra -d /drone
+  - ls /drone
 
 - name: clone_gh-pages
   image: alpine/git
   commands:
-  - ls -alh 
+  - ls -alh /drone 
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts /tmp/helm-charts
-  - mv /tmp/nzbhydra/nzbhydra* /tmp/helm-charts
+  - mv /drone/nzbhydra* /tmp/helm-charts
   - cd /tmp/helm-charts
   - git add .
   - git commit -m "add updated helm package"
