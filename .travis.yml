@@ -18,7 +18,7 @@ script:
 deploy:
 - provider: script 
   skip_cleanup: true
-  script: chartpress --publish-chart
+  script: chartpress 
   #script: ${PWD}/deploy.sh
   on:
     branch: master
