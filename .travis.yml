@@ -15,10 +15,10 @@ install:
 script:
 - helm lint nzbhydra
 deploy:
-- provider: script
-  repo: carpenike/helm-charts
+- provider: script 
   skip_cleanup: true
-  script: chartpress --publish-chart
+  #script: chartpress --publish-chart
+  script: deploy.sh
   on:
     branch: master
     tags: true
