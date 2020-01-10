@@ -1,4 +1,3 @@
-sudo: required
 env:
 - GIT_SSH_COMMAND="ssh -i ${PWD}/deploy_key"
 language: python
