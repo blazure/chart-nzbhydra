@@ -19,4 +19,5 @@ steps:
   image: alpine/git
   commands:
   - git clone https://github.com/carpenike/helm-charts /tmp/helm-charts
+  - git checkout gh-pages
   - ls /tmp/helm-charts
