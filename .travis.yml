@@ -14,11 +14,12 @@ install:
 - pip install chartpress
 script:
 - helm lint nzbhydra
+- git remote set-url origin https://github.com/carpenike/helm-charts
 deploy:
 - provider: script 
   skip_cleanup: true
-  #script: chartpress --publish-chart
-  script: ${PWD}/deploy.sh
+  script: chartpress --publish-chart
+  #script: ${PWD}/deploy.sh
   on:
     branch: master
     tags: true
