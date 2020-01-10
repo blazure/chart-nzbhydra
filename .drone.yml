@@ -15,7 +15,7 @@ steps:
   - helm package nzbhydra -d /tmp/nzbhydra
   - ls /tmp/nzbhydra 
 
-- name: clone pages
+- name: clone_gh-pages
   image: alpine/git
   commands:
   - git clone https://github.com/carpenike/helm-charts /tmp/helm-charts
