@@ -13,3 +13,9 @@ steps:
   - cd nzbhydra
   - ../helm-docs
   - helm package nzbhydra
+  - ls ${PWD}
+
+    #- name: clone pages
+    #  image: alpine/git
+    #  commands:
+    #  - git clone https://
