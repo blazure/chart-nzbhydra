@@ -7,8 +7,6 @@ python:
 before_install:
 - openssl aes-256-cbc -K $encrypted_35b05062587d_key -iv $encrypted_35b05062587d_iv
   -in deploy_key.enc -out deploy_key -d
-- openssl aes-256-cbc -K $encrypted_327314ffaaae_key -iv $encrypted_327314ffaaae_iv
-  -in deploy_key.enc -out deploy_key -d
 - chmod 400 deploy_key
 install:
 - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
