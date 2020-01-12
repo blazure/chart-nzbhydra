@@ -23,6 +23,10 @@ steps:
   commands:
   - git config --global user.email "drone@holthome.net"
   - git config --global user.name "[Automation] Drone CI/CD"
-  - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ add -A
-  - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ commit -m "added additional file"
-  - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ push
+  - cd helm-charts
+  - git add -A
+  - git commit -m "added additional file"
+  - git push
+  # - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ add -A
+  # - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ commit -m "added additional file"
+  # - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ push
