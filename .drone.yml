@@ -10,7 +10,7 @@ steps:
   # - mkdir ~/.ssh
   # - chmod 600 ~/.ssh
   # - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-  - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts
+  - git clone -b gh-pages https://github.com/carpenike/helm-charts
 
 - name: build
   image: dtzar/helm-kubectl:2.16.1
