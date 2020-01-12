@@ -7,6 +7,7 @@ steps:
 - name: clone_gh-pages
   image: plugins/git
   commands:
+  - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts
 
 - name: build
