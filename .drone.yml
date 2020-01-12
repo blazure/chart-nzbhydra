@@ -7,7 +7,7 @@ steps:
 - name: clone_gh-pages
   image: alpine/git
   commands:
-  - git clone -b gh-pages --single-branch https://${GITHUB_TOKEN}:x-oauth-basicgithub.com/carpenike/helm-charts
+  - git clone -b gh-pages --single-branch https://${GITHUB_TOKEN}:x-oauth-basic@github.com/carpenike/helm-charts
 
 - name: build
   image: dtzar/helm-kubectl:2.16.1
