@@ -8,7 +8,7 @@ steps:
   image: plugins/git
   commands:
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts
-  - cat ~/.netrc
+  - cat ~/netrc
 
 - name: build
   image: dtzar/helm-kubectl:2.16.1
