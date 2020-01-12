@@ -29,9 +29,9 @@ steps:
     remote: git@github.com:carpenike/helm-charts.git
     # remote_name: origin
     branch: gh-pages
-    local_ref: gh-pages
+    # local_ref: gh-pages
     path: helm-charts
-    key:
+    ssh_key:
       from_secret: SSH_KEY
   # commands:
   # - git config --global user.email "drone@holthome.net"
