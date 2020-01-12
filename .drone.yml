@@ -32,8 +32,8 @@ steps:
     local_branch: gh-pages
     commit: true
     force: true
-    author_name: [Automated] Drone.IO
-    author_email: drone@holthome.net
+    author_name: "[Automated] Drone.IO"
+    author_email: "drone@holthome.net"
     path: helm-charts
     ssh_key:
       from_secret: SSH_KEY
