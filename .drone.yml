@@ -8,9 +8,6 @@ steps:
   image: plugins/git
   commands:
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts
-  - echo ${DRONE_NETRC_MACHINE}
-  - echo ${DRONE_NETRC_USERNAME}
-  - echo ${DRONE_NETRC_PASSWORD}
 
 - name: build
   image: dtzar/helm-kubectl:2.16.1
@@ -22,14 +19,15 @@ steps:
   - helm package nzbhydra -d helm-charts
 
 - name: push_gh-pages
-  image: docker:git
-  commands:
-  - git config --global user.email "drone@holthome.net"
-  - git config --global user.name "[Automation] Drone CI/CD"
-  - cd helm-charts
-  - git add -A
-  - git commit -m "added additional file"
-  - git push
+  image: appleboy/drone-git-push
+  settings:
+    remote_name: origin
+    branch: gh-pages
+    local_ref: gh-pages
+    path: helm-charts
+  # commands:
+  # - git config --global user.email "drone@holthome.net"
+  # - git config --global user.name "[Automation] Drone CI/CD"
   # - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ add -A
   # - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ commit -m "added additional file"
   # - git --git-dir=/drone/src/helm-charts/.git/ --work-tree=/drone/src/helm-charts/ push
