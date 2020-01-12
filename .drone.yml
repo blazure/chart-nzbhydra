@@ -30,6 +30,8 @@ steps:
   - name: gh-pages
     path: /root/gh-pages
   commands:
+  - git config --global user.email "drone@holthome.net"
+  - git config --global user.name "[Automation] Drone CI/CD"
   - git --git-dir=/root/gh-pages/.git/ --work-tree=/root/gh-pages/ add -A
   - git --git-dir=/root/gh-pages/.git/ --work-tree=/root/gh-pages/ commit -m "added additional file"
   - git --git-dir=/root/gh-pages/.git/ --work-tree=/root/gh-pages/ push
