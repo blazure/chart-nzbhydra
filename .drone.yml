@@ -27,9 +27,9 @@ steps:
   image: appleboy/drone-git-push
   settings:
     remote: git@github.com:carpenike/helm-charts.git
-    # remote_name: origin
-    # branch: gh-pages
-    # local_ref: gh-pages
+    remote_name: origin
+    branch: gh-pages
+    local_ref: gh-pages
     path: helm-charts
     key:
       from_secret: SSH_KEY
