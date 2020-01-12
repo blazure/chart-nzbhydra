@@ -5,7 +5,7 @@ name: default
 
 steps:
 - name: clone_gh-pages
-  image: plugins/git
+  image: docker:git
   commands:
   - git clone -b gh-pages --single-branch https://github.com/carpenike/helm-charts
 
@@ -19,7 +19,7 @@ steps:
   - helm package nzbhydra -d helm-charts
 
 - name: push_gh-pages
-  image: plugins/git
+  image: docker:git
   commands:
   - git config --global user.email "drone@holthome.net"
   - git config --global user.name "[Automation] Drone CI/CD"
