@@ -20,7 +20,7 @@ steps:
   - wget -O - https://github.com/norwoodj/helm-docs/releases/download/v0.8.0/helm-docs_0.8.0_Linux_x86_64.tar.gz | tar xvzf - helm-docs
   - ./helm-docs
   - helm package nzbhydra -d helm-charts
-  - git --git-dir=./helm-charts/.git/ --work-tree=./helm-charts/ add -A 
+  # - git --git-dir=./helm-charts/.git/ --work-tree=./helm-charts/ add -A 
 
 
 - name: push_gh-pages
@@ -29,7 +29,11 @@ steps:
     remote: git@github.com:carpenike/helm-charts.git
     remote_name: origin
     branch: gh-pages
-    local_ref: gh-pages
+    local_branch: gh-pages
+    commit: true
+    force: true
+    author_name: [Automated] Drone.IO
+    author_email: drone@holthome.net
     path: helm-charts
     ssh_key:
       from_secret: SSH_KEY
