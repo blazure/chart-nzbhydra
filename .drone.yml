@@ -18,11 +18,19 @@ steps:
   - ./helm-docs
   - helm package nzbhydra -d helm-charts
 
+- name: commit_gh-pages
+  image: appleboy/drone-git-push
+  settings:
+    remote_name: origin
+    branch: gh-pages
+    local_ref: gh-pages
+    path: helm-charts
+
 - name: push_gh-pages
   image: appleboy/drone-git-push
   settings:
     remote: git@github.com:carpenike/helm-charts.git
-    #remote_name: origin
+    remote_name: origin
     branch: gh-pages
     local_ref: gh-pages
     path: helm-charts
